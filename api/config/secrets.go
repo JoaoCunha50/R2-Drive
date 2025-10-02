@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -9,6 +10,7 @@ import (
 
 type env struct {
 	PORT string
+	DATABASE_URL string
 }
 
 func LoadConfig() *env {
@@ -20,5 +22,11 @@ func LoadConfig() *env {
 	if port == "" {
 		port = "3000"
 	}
-	return &env{PORT: port}
+
+	url := os.Getenv("DATABASE_URL")
+	if url == "" {
+		log.Fatal("Error: DATABASE_URL not found")
+	}
+
+	return &env{PORT: port, DATABASE_URL: url}
 }
