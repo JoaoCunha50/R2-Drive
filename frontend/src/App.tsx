@@ -1,14 +1,14 @@
-import { LoaderCircle as Spinner } from "lucide-react";
-import { Suspense } from "react";
-import "./App.css";
-import AppRouter from "./router/Router";
+import { MantineProvider } from '@mantine/core'
+import '@mantine/core/styles.css'
+import AppRouter from './router/Router'
+import { theme } from './styles/theme'
 
 function App() {
     return (
-        <Suspense fallback={<Spinner className="spinner" />}>
+        <MantineProvider theme={theme} defaultColorScheme="dark">
             <AppRouter />
-        </Suspense>
-    );
+        </MantineProvider>
+    )
 }
 
-export default App;
+export default App
