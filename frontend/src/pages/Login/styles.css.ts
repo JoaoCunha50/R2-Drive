@@ -24,7 +24,8 @@ export const header = style({
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: '10px',
+    marginRight: '5px',
+    gap: '5px',
 })
 
 export const title = style({
