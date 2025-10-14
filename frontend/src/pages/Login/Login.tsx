@@ -1,4 +1,4 @@
-import { Button, TextInput } from '@mantine/core'
+import { Button, Image, TextInput } from '@mantine/core'
 import { AtSignIcon, Eye, EyeClosed } from 'lucide-react'
 import { useState } from 'react'
 import { actions, form, header, paper, title, wrapper } from './styles.css'
@@ -14,7 +14,8 @@ export default function Login() {
         <div className={wrapper}>
             <div className={paper}>
                 <div className={header}>
-                    <h1 className={title}>Login</h1>
+                    <Image src="/S3Drive.png" h={100} w={100} />
+                    <h1 className={title}>S3Drive</h1>
                 </div>
                 <div className={form}>
                     <TextInput

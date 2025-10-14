@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css'
-import { Indigo, SurfaceGray, Violet } from '../../styles/colors'
+import { BlueSecondary, PurplePrimary, SurfaceGray } from '../../styles/colors'
 import { vars } from '../../styles/theme'
 
 export const wrapper = style({
@@ -10,23 +10,28 @@ export const wrapper = style({
 })
 
 export const paper = style({
-    width: '100%',
+    width: '40%',
     maxWidth: '50%',
     backgroundColor: SurfaceGray,
-    padding: '5% 10% 5% 10%',
+    padding: '5% 6% 5% 6%',
     borderRadius: vars.radiusDefault,
 })
 
 export const header = style({
+    display: 'flex',
+    flexDirection: 'row',
     marginBottom: '35px',
     textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '10px',
 })
 
 export const title = style({
     margin: 0,
     fontWeight: 700,
-    fontSize: '30px',
-    background: `linear-gradient(to right, ${Indigo}, ${Violet})`,
+    fontSize: '40px',
+    background: `linear-gradient(to right, ${PurplePrimary}, ${BlueSecondary})`,
     WebkitBackgroundClip: 'text',
     color: 'transparent',
     lineHeight: 1.2,
@@ -42,5 +47,5 @@ export const actions = style({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: '40px',
+    marginTop: '50px',
 })
