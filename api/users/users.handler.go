@@ -44,13 +44,14 @@ func (h *UserHandler) CreateUser(c *gin.Context) {
 
 func (h *UserHandler) LoginUser(c *gin.Context) {
 	var request LoginRequest
-	err := c.ShouldBindBodyWithJSON(&request)
+
+	err := c.ShouldBindJSON(&request)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	err = h.repo.LoginUser(request.email, request.username, request.password)
+	err = h.repo.LoginUser(request.Email, request.Username, request.Password)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
 		return
@@ -78,11 +79,11 @@ func (h *UserHandler) GetUser(c *gin.Context) {
 	}
 
 	userResponse := UserResponseDTO{
-		id: user.ID,
-		name: user.Name,
-		username: user.Username,
-		email: user.Email,
-		profilePic: user.ProfilePic,
+		Id: user.ID,
+		Name: user.Name,
+		Username: user.Username,
+		Email: user.Email,
+		ProfilePic: user.ProfilePic,
 	}
 
 	c.JSON(http.StatusOK, gin.H{"data": userResponse})

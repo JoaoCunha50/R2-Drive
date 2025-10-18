@@ -11,6 +11,9 @@ import (
 type env struct {
 	PORT string
 	DATABASE_URL string
+	ADMIN_PASSWORD string
+	ADMIN_USERNAME string
+	ADMIN_EMAIL string
 }
 
 func LoadConfig() *env {
@@ -28,5 +31,20 @@ func LoadConfig() *env {
 		log.Fatal("Error: DATABASE_URL not found")
 	}
 
-	return &env{PORT: port, DATABASE_URL: url}
+	pass := os.Getenv("ADMIN_PASSWORD") 
+	if pass == "" {
+		log.Fatal("Error: Env variable missing")
+	}
+
+	user := os.Getenv("ADMIN_USERNAME")
+	if user == "" {
+		log.Fatal("Error: Env variable missing")
+	}
+
+	email := os.Getenv("ADMIN_EMAIL")
+	if email == "" {
+		log.Fatal("Error: Env variable missing")
+	}
+
+	return &env{PORT: port, DATABASE_URL: url, ADMIN_PASSWORD: pass, ADMIN_USERNAME: user, ADMIN_EMAIL: email}
 }
