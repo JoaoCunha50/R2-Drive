@@ -41,8 +41,8 @@ func CreateAdmin(username string , email string, password string, db *gorm.DB) e
 
 	var admin = users.User{Username: username, Email: email, Password: string(hash), Name: "João Cunha"}
 
-	err := db.First(&admin, "username = ?", username)
-	if err != nil {
+	err := db.First(&admin, "username = ?", username).Error
+	if err == nil {
 		return nil
 	}
 
