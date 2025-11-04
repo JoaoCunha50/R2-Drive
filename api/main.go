@@ -1,9 +1,10 @@
 package main
 
 import (
-	"api/config"
-	"api/database"
+	"api/internal/config"
+	"api/internal/repositories"
 	"api/router"
+
 	"log"
 
 	"github.com/gin-contrib/cors"
@@ -12,20 +13,19 @@ import (
 
 func main() {
 	env := config.LoadConfig()
-
-	db := database.DBconnection(env.DATABASE_URL)
-	err := database.CreateAdmin(env.ADMIN_USERNAME, env.ADMIN_EMAIL, env.ADMIN_PASSWORD, db)
+	db := config.CreateDBconnection(env.DATABASE_URL)
+	err := config.CreateAdmin(env.ADMIN_USERNAME, env.ADMIN_EMAIL, env.ADMIN_PASSWORD, db)
 
 	if err != nil {
 		log.Println(err)
 	} else {
 		log.Println("Admin created successfully!")
 	}
-	
+
+	repos := repositories.InitRepos(db)
+
 	r := gin.Default()
-
-	router.SetupMainRouter(r, db)
-
+	router.SetupMainRouter(r, repos)
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"http://localhost:5173"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE"},

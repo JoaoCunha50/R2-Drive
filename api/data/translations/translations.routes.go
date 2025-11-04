@@ -2,11 +2,9 @@ package translations
 
 import (
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 )
 
-func RegisterTranslationRoutes(r *gin.RouterGroup, db *gorm.DB) {
-	repo := NewTranslationRepository(db)
+func RegisterTranslationRoutes(r *gin.RouterGroup, repo *TranslationRepository) {
 	handler := NewTranslationHandler(repo)
 	
 	r.GET("/", handler.GetTranslations)

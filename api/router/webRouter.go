@@ -1,17 +1,19 @@
 package router
 
 import (
-	"api/translations"
-	"api/users"
+	"api/data/info"
+	"api/data/translations"
+	"api/data/users"
 
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 )
 
-func WebRouter(r *gin.RouterGroup, db *gorm.DB) {
+func WebRouter(r *gin.RouterGroup, usersRepo *users.UserRepository, translationsRepo *translations.TranslationRepository) {
     userGroup := r.Group("/users")
 	translationsGroup := r.Group("/translations")
+	infoGroup := r.Group("/info")
 
-    users.RegisterUserRoutes(userGroup, db)
-	translations.RegisterTranslationRoutes(translationsGroup, db)
+    users.RegisterUserRoutes(userGroup, usersRepo)
+	translations.RegisterTranslationRoutes(translationsGroup, translationsRepo)
+	info.RegisterInfoRoutes(infoGroup, usersRepo, translationsRepo)
 }

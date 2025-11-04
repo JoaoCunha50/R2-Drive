@@ -1,0 +1,7 @@
+package middlewares
+
+import "github.com/gin-gonic/gin"
+
+func AuthMiddleware(c *gin.Context) {
+
+}
