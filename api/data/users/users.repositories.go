@@ -40,7 +40,7 @@ func (r *UserRepository) GetUser(id int) (*User, error) {
 	return &user, nil
 }
 
-func (r *UserRepository) LoginUser(email *string, username *string, password string) error {
+func (r *UserRepository) LoginUser(email *string, username *string, password string) (*User, error) {
 	var user User
     q := r.db.Model(&User{})
 
@@ -67,7 +67,7 @@ func (r *UserRepository) LoginUser(email *string, username *string, password str
             storedHash = fakeHash
             userFound = false
         } else {
-            return err
+            return nil, err
         }
     } else {
         storedHash = []byte(user.Password)
@@ -76,12 +76,12 @@ func (r *UserRepository) LoginUser(email *string, username *string, password str
 
 	err := bcrypt.CompareHashAndPassword([]byte(storedHash), []byte(password))
 	if err != nil {
-		return errors.New("invalid credentials")
+		return nil, errors.New("invalid credentials")
 	}
 
 	if (!userFound) {
-		return errors.New("invalid credentials")
+		return nil, errors.New("invalid credentials")
 	}
 
-	return nil
+	return &user, nil
 }

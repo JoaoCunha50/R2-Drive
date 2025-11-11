@@ -14,6 +14,13 @@ type env struct {
 	ADMIN_PASSWORD string
 	ADMIN_USERNAME string
 	ADMIN_EMAIL string
+	JWT_SECRET string
+}
+
+var EnvVariables *env
+
+func init() {
+	EnvVariables = LoadConfig()
 }
 
 func LoadConfig() *env {
@@ -46,5 +53,10 @@ func LoadConfig() *env {
 		log.Fatal("Error: Env variable missing")
 	}
 
-	return &env{PORT: port, DATABASE_URL: url, ADMIN_PASSWORD: pass, ADMIN_USERNAME: user, ADMIN_EMAIL: email}
+	jwtSecret := os.Getenv("JWT_SECRET")
+	if jwtSecret == "" {
+		log.Fatal("Error: Env variable missing")
+	}
+
+	return &env{PORT: port, DATABASE_URL: url, ADMIN_PASSWORD: pass, ADMIN_USERNAME: user, ADMIN_EMAIL: email, JWT_SECRET: jwtSecret}
 }
