@@ -5,6 +5,7 @@ type UserResponseDTO struct {
 	Name  string `json:"name"` 
 	Username string `json:"username"`
 	Email string `json:"email"`
+	Role Role `json:"role"`
 	ProfilePic *string `json:"profilePic,omitempty"`
 }
 
