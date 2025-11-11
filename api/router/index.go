@@ -8,5 +8,5 @@ import (
 
 func SetupMainRouter(r *gin.Engine, repos *repositories.Repos) {
 	webGroup := r.Group("/web") 
-	WebRouter(webGroup, repos.UsersRepo, repos.TranslationsRepo)
+	WebRouter(webGroup, repos)
 }
