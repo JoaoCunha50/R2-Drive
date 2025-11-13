@@ -9,5 +9,5 @@ func RegisterUserRoutes(r *gin.RouterGroup, repo *UserRepository) {
     
     r.POST("/login", handler.LoginUser)
     r.GET("/:id", handler.GetUser)
-    r.POST("/", handler.CreateUser)
+    r.POST("", handler.CreateUser)
 }

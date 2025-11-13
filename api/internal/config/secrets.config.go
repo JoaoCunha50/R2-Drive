@@ -14,7 +14,7 @@ type env struct {
 	ADMIN_PASSWORD string
 	ADMIN_USERNAME string
 	ADMIN_EMAIL string
-	JWT_SECRET string
+	JWT_SECRET []byte
 }
 
 var EnvVariables *env
@@ -53,8 +53,8 @@ func LoadConfig() *env {
 		log.Fatal("Error: Env variable missing")
 	}
 
-	jwtSecret := os.Getenv("JWT_SECRET")
-	if jwtSecret == "" {
+	jwtSecret := []byte(os.Getenv("JWT_SECRET"))
+	if len(jwtSecret) <= 0 {
 		log.Fatal("Error: Env variable missing")
 	}
 

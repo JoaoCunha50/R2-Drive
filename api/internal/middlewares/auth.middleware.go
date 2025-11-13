@@ -11,16 +11,19 @@ func HasAuthentication(c *gin.Context) {
 	tokenStr := utils.ExtractToken(c)
 	if tokenStr == "" {
 		c.Next()
+		return
 	}
 
 	token, err := utils.TokenDecode(tokenStr)
 	if err != nil || !token.Valid {
 		c.Next()
+		return
 	}
 
 	claims, ok := token.Claims.(jwt.MapClaims)
 	if !ok {
 		c.Next()
+		return
 	}
 
 	currentUser := map[string]any {

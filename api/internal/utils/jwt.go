@@ -7,9 +7,9 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-var jwtSecret string
+var jwtSecret []byte
 
-func InitSecret(secret string) {
+func InitSecret(secret []byte) {
 	jwtSecret = secret
 }
 

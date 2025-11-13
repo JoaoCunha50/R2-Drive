@@ -30,7 +30,7 @@ func (r *UserRepository) CreateUser(user *User) error {
 	return nil
 }
 
-func (r *UserRepository) GetUser(id int) (*User, error) {
+func (r *UserRepository) GetUser(id uint) (*User, error) {
 	var user User
 	err := r.db.First(&user, id).Error
 	if err != nil {

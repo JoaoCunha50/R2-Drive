@@ -12,5 +12,5 @@ func RegisterInfoRoutes(r *gin.RouterGroup, usersRepo *users.UserRepository, tra
 	infoService := NewInfoService(usersRepo, translationsRepo)
 	infoHandler := NewInfoHandler(infoService)
 
-	r.GET("/", middlewares.HasAuthentication, infoHandler.GetInfo)
+	r.GET("", middlewares.HasAuthentication, infoHandler.GetInfo)
 }

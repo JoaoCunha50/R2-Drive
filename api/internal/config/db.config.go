@@ -28,6 +28,20 @@ func CreateDBconnection(url string) *gorm.DB {
 	if err != nil {
 		log.Fatal(err)
 	}
+    
+	err = db.Exec(`
+		DO $$ 
+		BEGIN
+			IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'role_enum') THEN
+				CREATE TYPE role_enum AS ENUM ('admin', 'member');
+			END IF;
+		END
+		$$;
+	`).Error
+	if err != nil {
+		log.Fatal("Falha ao criar o tipo ENUM 'role_enum':", err)
+	}
+
 
 	db.AutoMigrate(&users.User{}, &translations.Translation{})
 	

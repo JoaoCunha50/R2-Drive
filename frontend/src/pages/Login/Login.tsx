@@ -2,7 +2,10 @@ import { Button, Image, TextInput } from '@mantine/core'
 import { AxiosError } from 'axios'
 import { AtSignIcon, Eye, EyeClosed } from 'lucide-react'
 import { useState } from 'react'
-import { api } from '../../config/api'
+import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router'
+import { api } from '../../internal/config/api'
+import { AuthTokenKey } from '../../internal/utils/storageKeys'
 import {
     actions,
     error,
@@ -27,14 +30,15 @@ export default function Login() {
         username: '',
         password: '',
     })
+    const navigate = useNavigate()
+    const { t } = useTranslation()
 
     async function onSubmit() {
         try {
-            console.log(api)
             const response = await api.post('/users/login', { ...formData })
             if (response.status === 200) {
-                console.log(response.data)
-                window.location.href = '/'
+                localStorage.setItem(AuthTokenKey, response.data?.token)
+                navigate('/')
             } else {
                 setError('Invalid credentials')
             }
@@ -60,7 +64,7 @@ export default function Login() {
             <div className={paper}>
                 <div className={header}>
                     <Image src="/S3Drive.png" h={100} w={100} />
-                    <h1 className={title}>S3Drive</h1>
+                    <h1 className={title}>R2Drive</h1>
                 </div>
                 <div className={form}>
                     <TextInput
@@ -125,7 +129,7 @@ export default function Login() {
                             fullWidth
                             onClick={onSubmit}
                         >
-                            Login
+                            {t('LOGIN')}
                         </Button>
                     </div>
                 </div>

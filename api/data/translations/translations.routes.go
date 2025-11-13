@@ -7,6 +7,6 @@ import (
 func RegisterTranslationRoutes(r *gin.RouterGroup, repo *TranslationRepository) {
 	handler := NewTranslationHandler(repo)
 	
-	r.GET("/", handler.GetTranslations)
-	r.POST("/", handler.CreateTranslation)
+	r.GET("", handler.GetTranslations)
+	r.POST("", handler.CreateTranslation)
 }

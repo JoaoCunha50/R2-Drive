@@ -77,13 +77,13 @@ func (h *UserHandler) LoginUser(c *gin.Context) {
 
 func (h *UserHandler) GetUser(c *gin.Context) {
 	id := c.Param("id")
-	idInt, err := strconv.Atoi(id)
+	idInt, err := strconv.ParseUint(id, 10, 0)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return 
 	}
 	
-	user, err := h.repo.GetUser(idInt)
+	user, err := h.repo.GetUser(uint(idInt))
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
 			c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
