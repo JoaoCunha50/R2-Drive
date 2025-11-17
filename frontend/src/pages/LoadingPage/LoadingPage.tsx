@@ -1,5 +1,5 @@
 import { LoaderCircle as Spinner } from 'lucide-react'
-import { spinner } from './spinnerStyles.css'
+import { spinner } from './SpinnerStyles.css'
 
 export default function LoadingPage() {
     return (

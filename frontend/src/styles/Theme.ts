@@ -1,6 +1,6 @@
 import { createTheme, type CSSVariablesResolver } from '@mantine/core'
 import { themeToVars } from '@mantine/vanilla-extract'
-import * as colors from './colors'
+import * as colors from './Variables'
 
 export const theme = createTheme({
     fontFamily: 'system-ui, Avenir, Helvetica, Arial, sans-serif',

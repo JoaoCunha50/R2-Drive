@@ -10,8 +10,8 @@ import React, {
 } from 'react'
 import { initReactI18next } from 'react-i18next/initReactI18next'
 import { useNavigate } from 'react-router'
-import { api } from '../internal/config/api'
 import LoadingPage from '../pages/LoadingPage/LoadingPage'
+import { api } from '../services/axios/AxiosConfig'
 import type { User } from '../types/User'
 
 const FallBackInfo = {

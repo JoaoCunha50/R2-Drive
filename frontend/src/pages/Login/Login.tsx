@@ -1,11 +1,11 @@
 import { Button, Image, TextInput } from '@mantine/core'
-import { AxiosError } from 'axios'
 import { AtSignIcon, Eye, EyeClosed } from 'lucide-react'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
-import { api } from '../../internal/config/api'
-import { AuthTokenKey } from '../../internal/utils/storageKeys'
+import { UserContext } from '../../context/Context'
+import { Login as LoginRequest } from '../../services/requests/Auth'
+import { AuthTokenKey } from '../../services/storage/StorageKeys'
 import {
     actions,
     error,
@@ -14,7 +14,7 @@ import {
     paper,
     title,
     wrapper,
-} from './styles.css'
+} from './LoginStyles.css'
 
 type FormData = {
     email: string
@@ -32,26 +32,21 @@ export default function Login() {
     })
     const navigate = useNavigate()
     const { t } = useTranslation()
+    const { setUser } = useContext(UserContext)
 
     async function onSubmit() {
         try {
-            const response = await api.post('/users/login', { ...formData })
-            if (response.status === 200) {
-                localStorage.setItem(AuthTokenKey, response.data?.token)
+            const response = await LoginRequest(formData)
+            if (response?.success) {
+                localStorage.setItem(AuthTokenKey, response.data.token)
+                setUser(response.data.user)
                 navigate('/')
             } else {
-                setError('Invalid credentials')
+                setError(response?.message!)
             }
         } catch (error) {
             console.log(error)
-
-            if (error instanceof AxiosError && error.status === 404) {
-                console.log(error)
-                setError('')
-                setError('Invalid credentials')
-            } else {
-                setError('Something wrong happened...')
-            }
+            setError('Something wrong happened...')
         }
     }
 
@@ -98,7 +93,6 @@ export default function Login() {
                                 password: e.target.value,
                             })
                         }
-                        //error="Invalid password"
                         rightSection={
                             <>
                                 {showPassword ? (

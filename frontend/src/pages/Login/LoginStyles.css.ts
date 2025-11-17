@@ -1,6 +1,10 @@
 import { style } from '@vanilla-extract/css'
-import { BlueSecondary, PurplePrimary, SurfaceGray } from '../../styles/colors'
-import { vars } from '../../styles/theme'
+import { vars } from '../../styles/Theme'
+import {
+    BlueSecondary,
+    PurplePrimary,
+    SurfaceGray,
+} from '../../styles/Variables'
 
 export const wrapper = style({
     minHeight: '100dvh',

@@ -1,5 +1,5 @@
 import { globalStyle } from '@vanilla-extract/css'
-import { BackgroundGray } from './colors'
+import { BackgroundGray } from './Variables'
 
 globalStyle('*', {
     boxSizing: 'border-box',
